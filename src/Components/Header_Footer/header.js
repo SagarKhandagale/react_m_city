@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, Button } from '@mui/material';
 
 import { Link } from 'react-router-dom'
+import { CityLogo } from '../Utils/tools';
 
 const Header = () => {
     return (
@@ -17,7 +18,14 @@ const Header = () => {
 
         <Toolbar style={{ display:'flex'}}>
         <div style={{flexGrow: 1}}>
-            <div className='header_logo'>logo</div>
+            <div className='header_logo'>
+                <CityLogo 
+                    link={true}
+                    linkTo={'/'}
+                    width="70px"
+                    height="70px"
+                />
+            </div>
         </div>
 
         <Link to='/the_team'>
