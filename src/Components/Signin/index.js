@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
+import { firebase } from '../../firebase';
 
 import { CircularProgress } from '@mui/material';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const SignIn = () => {
+const SignIn = (props) => {
 
   const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+  const redirectToDashboard = () => {
+    if(navigate) navigate('/dashboard');
+   }
 
   const formik = useFormik({
     initialValues: {
@@ -24,9 +29,23 @@ const SignIn = () => {
     }),
     onSubmit: (values) => {
       setLoading(true);
-      console.log(values);
+      submitForm(values);
     }
   })
+
+  const submitForm = (values) => {
+    firebase.auth()
+    .signInWithEmailAndPassword(
+      values.email,
+      values.password
+    ).then(() => {
+      redirectToDashboard();
+    }).catch(error => {
+      console.log(error);
+      setLoading(false);
+      alert(error);
+    })
+  }
 
   return (
     <div className="container">
@@ -64,9 +83,6 @@ const SignIn = () => {
             :
             <button type='submit'>Log In</button>
           }
-
-
-
         </form>
       </div>
     </div>

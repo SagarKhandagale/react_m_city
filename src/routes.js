@@ -6,12 +6,16 @@ import Footer from './Components/Header_Footer/footer'
 import Home from './Components/Home'
 import SignIn from './Components/Signin'
 
-const App = () => {
+const MyRoutes = (props) => {
+
+  console.log('MyRoutes user');
+  console.log(props);
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path='/sign_in' element={<SignIn />} />
+        <Route exact path='/sign_in' element={<SignIn />} />
         <Route path='/' element={<Home />} />
       </Routes>
       <Footer />
@@ -19,4 +23,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default MyRoutes;
