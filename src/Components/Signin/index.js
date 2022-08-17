@@ -3,6 +3,7 @@ import { firebase } from '../../firebase';
 
 import { CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { showErrorToast, showSuccessToast } from '../Utils/tools'
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -17,8 +18,8 @@ const SignIn = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: ''
+      email: 'admin123@gmail.com',
+      password: 'AdminAdmin'
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -40,10 +41,11 @@ const SignIn = (props) => {
       values.password
     ).then(() => {
       redirectToDashboard();
+      showSuccessToast('Welcome Back..!!');
     }).catch(error => {
       console.log(error);
       setLoading(false);
-      alert(error);
+      showErrorToast(error.message);
     })
   }
 
@@ -66,6 +68,7 @@ const SignIn = (props) => {
             : null}
 
           <input
+            placeholder='Password'
             name='password'
             type='Password'
             onChange={formik.handleChange}
